@@ -101,3 +101,22 @@ nav a:hover{
     background:#FFD54F;
     color:#000;
 }
+.about{
+    padding:70px 10%;
+    text-align:center;
+    background:#ffffff;
+}
+
+.about h2{
+    font-size:40px;
+    color:#0B6E3D;
+    margin-bottom:20px;
+}
+
+.about p{
+    max-width:800px;
+    margin:auto;
+    font-size:18px;
+    line-height:1.8;
+    color:#555;
+}
