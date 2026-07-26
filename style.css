@@ -1,1 +1,26 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f8f5;
+    color:#222;
+}
+
+h1{
+    text-align:center;
+    padding:20px;
+    color:#0b6b3a;
+    font-size:40px;
+}
+
+img{
+    display:block;
+    width:100%;
+    max-width:1400px;
+    margin:auto;
+    border-radius:10px;
+}
