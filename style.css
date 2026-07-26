@@ -1,122 +1,218 @@
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
-    background:#f5f8f5;
-    color:#222;
+background:#f5f7f9;
+color:#222;
 }
 
-/* Header */
+/* HEADER */
 
 header{
-    background:#0B6E3D;
-    color:#fff;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 8%;
-    position:sticky;
-    top:0;
-    z-index:999;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:15px 8%;
+background:#0B6E3D;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:1000;
+box-shadow:0 5px 20px rgba(0,0,0,.15);
 }
 
 .logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
+display:flex;
+align-items:center;
+gap:12px;
 }
 
 .logo img{
-    width:60px;
-    height:60px;
-    border-radius:50%;
+width:55px;
+height:55px;
+border-radius:50%;
 }
 
 .logo h2{
-    font-size:22px;
+color:#fff;
+font-size:28px;
 }
 
 nav a{
-    color:#fff;
-    text-decoration:none;
-    margin-left:25px;
-    font-weight:bold;
-    transition:.3s;
+text-decoration:none;
+color:#fff;
+margin-left:30px;
+font-weight:600;
+transition:.3s;
 }
 
 nav a:hover{
-    color:#FFD54F;
+color:#FFD54F;
 }
 
-/* Hero */
+/* HERO */
 
 .hero{
-    position:relative;
+position:relative;
+height:100vh;
+overflow:hidden;
 }
 
-.hero img{
-    width:100%;
-    display:block;
+.banner{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-.hero-text{
-    position:absolute;
-    top:50%;
-    left:8%;
-    transform:translateY(-50%);
-    max-width:500px;
+.overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.35);
 }
 
-.hero-text h1{
-    color:#fff;
-    font-size:55px;
-    margin-bottom:15px;
-    text-shadow:2px 2px 10px #000;
+.hero-content{
+position:absolute;
+top:50%;
+left:8%;
+transform:translateY(-50%);
+max-width:650px;
+color:#fff;
 }
 
-.hero-text p{
-    color:#fff;
-    font-size:18px;
-    line-height:1.7;
-    margin-bottom:25px;
-    text-shadow:2px 2px 8px #000;
+.hero-content h1{
+font-size:70px;
+line-height:1.1;
+margin-bottom:20px;
+text-shadow:0 4px 15px rgba(0,0,0,.5);
+}
+
+.hero-content p{
+font-size:20px;
+line-height:1.8;
+margin-bottom:35px;
 }
 
 .btn{
-    display:inline-block;
-    background:#0B6E3D;
-    color:#fff;
-    padding:14px 30px;
-    text-decoration:none;
-    border-radius:40px;
-    font-weight:bold;
-    transition:.3s;
+display:inline-block;
+padding:16px 40px;
+background:#0B6E3D;
+color:#fff;
+text-decoration:none;
+border-radius:50px;
+font-weight:bold;
+transition:.3s;
 }
 
 .btn:hover{
-    background:#FFD54F;
-    color:#000;
+background:#FFD54F;
+color:#000;
+transform:translateY(-3px);
 }
+
+/* ABOUT */
+
 .about{
-    padding:70px 10%;
-    text-align:center;
-    background:#ffffff;
+padding:100px 10%;
+background:#fff;
+text-align:center;
 }
 
 .about h2{
-    font-size:40px;
-    color:#0B6E3D;
-    margin-bottom:20px;
+font-size:42px;
+color:#0B6E3D;
+margin-bottom:25px;
 }
 
-.about p{
-    max-width:800px;
-    margin:auto;
-    font-size:18px;
-    line-height:1.8;
-    color:#555;
+.about>p{
+max-width:900px;
+margin:auto;
+font-size:18px;
+line-height:1.9;
+color:#555;
+}
+
+.about-box{
+margin-top:60px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+}
+
+.card{
+background:#f7faf7;
+padding:35px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+transition:.35s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+.card h3{
+color:#0B6E3D;
+margin-bottom:15px;
+font-size:24px;
+}
+
+.card p{
+line-height:1.8;
+color:#666;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+header{
+padding:15px 5%;
+flex-direction:column;
+}
+
+nav{
+margin-top:15px;
+}
+
+nav a{
+margin:0 10px;
+font-size:14px;
+}
+
+.hero{
+height:70vh;
+}
+
+.hero-content{
+left:6%;
+right:6%;
+max-width:100%;
+}
+
+.hero-content h1{
+font-size:38px;
+}
+
+.hero-content p{
+font-size:16px;
+}
+
+.logo h2{
+font-size:20px;
+}
+
+.about{
+padding:70px 7%;
+}
+
+.about h2{
+font-size:32px;
+}
+
 }
