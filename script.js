@@ -1,6 +1,10 @@
-// ===========================
-// MOBILE MENU
-// ===========================
+/*==================================
+PMF WEBSITE SCRIPT
+==================================*/
+
+/*==================================
+MOBILE MENU
+==================================*/
 
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector("nav");
@@ -9,11 +13,14 @@ menuToggle.addEventListener("click", () => {
 
     nav.classList.toggle("active");
 
+    menuToggle.innerHTML =
+        nav.classList.contains("active") ? "✕" : "☰";
+
 });
 
-// ===========================
-// CLOSE MENU AFTER CLICK
-// ===========================
+/*==================================
+CLOSE MENU AFTER CLICK
+==================================*/
 
 document.querySelectorAll("nav a").forEach(link => {
 
@@ -21,36 +28,37 @@ document.querySelectorAll("nav a").forEach(link => {
 
         nav.classList.remove("active");
 
+        menuToggle.innerHTML = "☰";
+
     });
 
 });
-// ===========================
-// STICKY HEADER
-// ===========================
+
+/*==================================
+HEADER SHADOW
+==================================*/
 
 const header = document.querySelector("header");
 
 window.addEventListener("scroll", () => {
 
-    if (window.scrollY > 80) {
+    if (window.scrollY > 60) {
 
-        header.style.padding = "12px 8%";
-        header.style.background = "#0B6E3D";
-        header.style.boxShadow = "0 8px 25px rgba(0,0,0,.20)";
+        header.style.background = "rgba(11,110,61,.98)";
+        header.style.boxShadow = "0 8px 25px rgba(0,0,0,.18)";
 
     } else {
 
-        header.style.padding = "15px 8%";
-        header.style.background = "#0B6E3D";
+        header.style.background = "rgba(11,110,61,.95)";
         header.style.boxShadow = "0 5px 20px rgba(0,0,0,.15)";
 
     }
 
 });
 
-// ===========================
-// BACK TO TOP BUTTON
-// ===========================
+/*==================================
+BACK TO TOP BUTTON
+==================================*/
 
 const topBtn = document.getElementById("topBtn");
 
@@ -79,212 +87,306 @@ topBtn.addEventListener("click", () => {
     });
 
 });
-// ===========================
-// STATISTICS COUNTER
-// ===========================
+/*==================================
+SCROLL ANIMATION
+==================================*/
 
-const counters = document.querySelectorAll(".stat-card h3");
+const observer = new IntersectionObserver((entries)=>{
 
-const counterObserver = new IntersectionObserver((entries) => {
+entries.forEach(entry=>{
 
-    entries.forEach(entry => {
+if(entry.isIntersecting){
 
-        if (!entry.isIntersecting) return;
+entry.target.style.opacity="1";
+entry.target.style.transform="translateY(0)";
 
-        const counter = entry.target;
-
-        const text = counter.innerText;
-
-        const target = parseInt(text.replace(/\D/g, "")) || 0;
-
-        const suffix = text.replace(/[0-9]/g, "");
-
-        let current = 0;
-
-        const increment = Math.max(1, Math.ceil(target / 100));
-
-        const updateCounter = () => {
-
-            current += increment;
-
-            if (current >= target) {
-
-                counter.innerText = target + suffix;
-
-            } else {
-
-                counter.innerText = current + suffix;
-
-                requestAnimationFrame(updateCounter);
-
-            }
-
-        };
-
-        updateCounter();
-
-        counterObserver.unobserve(counter);
-
-    });
-
-}, {
-
-    threshold: 0.5
+}
 
 });
 
-counters.forEach(counter => {
+},{
+threshold:.15
+});
 
-    counterObserver.observe(counter);
+document.querySelectorAll(
+".card,.activity-card,.gallery-item,.report-card,.join-card,.stat-card"
+).forEach(el=>{
+
+el.style.opacity="0";
+
+el.style.transform="translateY(60px)";
+
+el.style.transition=".8s";
+
+observer.observe(el);
 
 });
 
-// ===========================
-// SCROLL FADE ANIMATION
-// ===========================
+/*==================================
+COUNTER
+==================================*/
 
-const animatedItems = document.querySelectorAll(
-".card, .stat-card, .activity-card, .gallery-item, .report-card, .join-card, .contact-info, .contact-form"
-);
+const counters=document.querySelectorAll(".counter");
 
-animatedItems.forEach(item => {
+const speed=80;
 
-    item.style.opacity = "0";
-    item.style.transform = "translateY(40px)";
-    item.style.transition = "all .8s ease";
+const counterObserver=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(!entry.isIntersecting) return;
+
+const counter=entry.target;
+
+const target=parseInt(counter.innerText);
+
+let count=0;
+
+const update=()=>{
+
+const inc=Math.ceil(target/speed);
+
+count+=inc;
+
+if(count>=target){
+
+counter.innerText=target+"+";
+
+}else{
+
+counter.innerText=count;
+
+requestAnimationFrame(update);
+
+}
+
+};
+
+update();
+
+counterObserver.unobserve(counter);
 
 });
 
-const animationObserver = new IntersectionObserver((entries) => {
+},{threshold:.5});
 
-    entries.forEach(entry => {
+counters.forEach(counter=>{
 
-        if (entry.isIntersecting) {
-
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
-
-        }
-
-    });
-
-}, {
-
-    threshold: 0.15
+counterObserver.observe(counter);
 
 });
 
-animatedItems.forEach(item => {
+/*==================================
+IMAGE HOVER EFFECT
+==================================*/
 
-    animationObserver.observe(item);
+document.querySelectorAll(".gallery-item img").forEach(img=>{
+
+img.setAttribute("loading","lazy");
 
 });
-// ===========================
-// CONTACT FORM
-// ===========================
 
-const contactForm = document.querySelector(".contact-form form");
+/*==================================
+SMOOTH SECTION FADE
+==================================*/
 
-if(contactForm){
+window.addEventListener("load",()=>{
 
-contactForm.addEventListener("submit",function(e){
+document.body.style.opacity="1";
+
+});
+
+document.body.style.opacity="0";
+
+document.body.style.transition="opacity .5s";
+
+/*==================================
+ACTIVE NAV LINK
+==================================*/
+
+const sections=document.querySelectorAll("section");
+
+const navLinks=document.querySelectorAll("nav a");
+
+window.addEventListener("scroll",()=>{
+
+let current="";
+
+sections.forEach(section=>{
+
+const sectionTop=section.offsetTop-120;
+
+if(pageYOffset>=sectionTop){
+
+current=section.getAttribute("id");
+
+}
+
+});
+
+navLinks.forEach(link=>{
+
+link.classList.remove("active");
+
+if(link.getAttribute("href")==="#"+current){
+
+link.classList.add("active");
+
+}
+
+});
+
+});
+/*==================================
+CONTACT FORM
+==================================*/
+
+const form=document.querySelector(".contact-form form");
+
+if(form){
+
+form.addEventListener("submit",function(e){
 
 e.preventDefault();
 
-const name=this.querySelector('input[type="text"]').value.trim();
+const button=form.querySelector("button");
 
-const email=this.querySelector('input[type="email"]').value.trim();
+button.innerHTML="Sending...";
 
-const message=this.querySelector("textarea").value.trim();
+button.disabled=true;
 
-if(name==="" || email==="" || message===""){
+setTimeout(()=>{
 
-alert("Please fill in all fields.");
+alert("✅ Thank you for contacting PMF. We received your message.");
 
-return;
+form.reset();
 
-}
+button.innerHTML="Send Message";
 
-const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+button.disabled=false;
 
-if(!emailPattern.test(email)){
-
-alert("Please enter a valid email address.");
-
-return;
-
-}
-
-alert("Thank you! Your message has been received.");
-
-this.reset();
+},1200);
 
 });
 
 }
 
-// ===========================
-// IMAGE LAZY LOADING
-// ===========================
+/*==================================
+GALLERY LIGHTBOX
+==================================*/
 
-document.querySelectorAll("img").forEach(img=>{
+const galleryImages=document.querySelectorAll(".gallery-item img");
 
-img.loading="lazy";
+const lightbox=document.createElement("div");
+
+lightbox.id="lightbox";
+
+lightbox.innerHTML="<img>";
+
+document.body.appendChild(lightbox);
+
+galleryImages.forEach(image=>{
+
+image.addEventListener("click",()=>{
+
+lightbox.classList.add("show");
+
+lightbox.querySelector("img").src=image.src;
+
+});
 
 });
 
-// ===========================
-// SMOOTH SCROLL
-// ===========================
+lightbox.addEventListener("click",()=>{
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
-
-anchor.addEventListener("click",function(e){
-
-const target=document.querySelector(this.getAttribute("href"));
-
-if(target){
-
-e.preventDefault();
-
-target.scrollIntoView({
-
-behavior:"smooth"
+lightbox.classList.remove("show");
 
 });
+
+/*==================================
+LIGHTBOX STYLE
+==================================*/
+
+const style=document.createElement("style");
+
+style.innerHTML=`
+
+#lightbox{
+
+position:fixed;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.9);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+visibility:hidden;
+
+opacity:0;
+
+transition:.35s;
+
+z-index:999999;
+
+cursor:pointer;
 
 }
 
-});
+#lightbox.show{
 
-});
+visibility:visible;
 
-// ===========================
-// CONSOLE MESSAGE
-// ===========================
+opacity:1;
 
-console.log("===================================");
+}
 
-console.log("Probal Manobsheba Foundation (PMF)");
+#lightbox img{
 
-console.log("Designed & Developed by");
+max-width:90%;
 
-console.log("Bayjid Hossain Sagor");
+max-height:90%;
 
-console.log("===================================");
+border-radius:12px;
 
-// ===========================
-// FUTURE FEATURES
-// ===========================
+box-shadow:0 10px 40px rgba(0,0,0,.4);
 
-// Member Login System
-// Online Payment Gateway
-// Admin Dashboard
-// Monthly Report API
-// Certificate Verification
-// Volunteer Management
-// Donation Tracking
-// Notification System
-// Event Registration
-// Member Profile
+}
 
+nav a.active{
+
+color:#FFD54F;
+
+}
+
+`;
+
+document.head.appendChild(style);
+
+/*==================================
+YEAR
+==================================*/
+
+const year=document.getElementById("year");
+
+if(year){
+
+year.innerHTML=new Date().getFullYear();
+
+}
+
+/*==================================
+FINISHED
+==================================*/
+
+console.log("PMF Website Loaded Successfully");
